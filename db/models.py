@@ -2,8 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
 
-from db.models import MovieSession
-
 
 class Genre(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -33,7 +31,7 @@ class Movie(models.Model):
 class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, )
     user = models.ForeignKey(
-        on_delete=models.CASCADE, related_name="orders"
+        on_delete=models.CASCADE, related_name="orders", to="User"
     )
 
     class Meta:
