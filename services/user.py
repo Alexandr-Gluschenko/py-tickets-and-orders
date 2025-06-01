@@ -8,8 +8,10 @@ def create_user(username: str,
                 last_name: str = None) -> None:
     User.objects.create_user(username, email, password)
 
+
 def get_user(user_id: int) -> User:
     return User.objects.get(id=user_id)
+
 
 def update_user(user_id: int, username: str = None,
                 password: str = None, email: str = None,

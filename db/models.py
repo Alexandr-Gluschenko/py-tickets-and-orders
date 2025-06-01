@@ -40,6 +40,7 @@ class Order(models.Model):
     def __str__(self) -> str:
         return str(self.created_at)
 
+
 class Ticket(models.Model):
     movie_session = models.ForeignKey("MovieSession", on_delete=models.CASCADE)
     order = models.ForeignKey("Order", on_delete=models.CASCADE)
@@ -66,8 +67,10 @@ class Ticket(models.Model):
     def __str__(self) -> str:
         return str(self.movie_session) + f"{self.row}:{self.seat}"
 
+
 class User(AbstractUser):
     pass
+
 
 class CinemaHall(models.Model):
     name = models.CharField(max_length=255)
