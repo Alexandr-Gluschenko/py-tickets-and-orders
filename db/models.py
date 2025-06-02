@@ -1,3 +1,4 @@
+import self
 from django.contrib.auth.models import AbstractUser
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -29,6 +30,7 @@ class Movie(models.Model):
 
 
 class Order(models.Model):
+    objects = None
     created_at = models.DateTimeField(auto_now_add=True, )
     user = models.ForeignKey(
         on_delete=models.CASCADE, related_name="orders", to="User"
@@ -57,8 +59,8 @@ class Ticket(models.Model):
 
     def clean(self) -> None:
         hall = self.movie_session.cinema_hall
-        if self.row > hall.rows or self.seat > hall.seats_in_row:
-            raise ValidationError("Row or seat is out of range")
+        if not (1 <= self.row <= 10):
+           raise ValidationError({'row': ['row must be in range: (1, 10)']})
 
     def save(self, *args, **kwargs) -> None:
         self.full_clean()
